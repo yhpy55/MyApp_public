@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'dev',
     'hello',
+    'hello1',
     'sauna',
 ]
 

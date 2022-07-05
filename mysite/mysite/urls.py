@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 import hello.views as hello
+import hello1.views as hello1
 import sauna.views as sauna
 import dev.views as dev
 
@@ -23,6 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('dev.urls')),
     path('hello/', hello.index),
+    path('hello1/', hello1.index),
     path('sauna/', sauna.index),
     # path('dev/', dev.index),
 ]
