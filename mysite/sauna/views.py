@@ -16,8 +16,8 @@ def index(request):
 def create(request):
     if (request.method == 'POST'):
         obj = Sauna()
-        friend = SaunaForm(request.POST, instance=obj)
-        friend.save()
+        sauna = SaunaForm(request.POST, instance=obj)
+        sauna.save()
         return redirect(to='/sauna')
     params = {
         'title': 'Sauna/create',
@@ -28,8 +28,8 @@ def create(request):
 def edit(request, num):
     obj = Sauna.objects.get(id=num)
     if (request.method == 'POST'):
-        friend = SaunaForm(request.POST, instance=obj)
-        friend.save()
+        sauna = SaunaForm(request.POST, instance=obj)
+        sauna.save()
         return redirect(to='/sauna')
     params = {
         'title': 'Sauna/edit',
@@ -37,3 +37,15 @@ def edit(request, num):
         'form': SaunaForm(instance=obj)
     }
     return render(request, 'sauna/edit.html', params)
+
+def delete(request, num):
+    sauna = Sauna.objects.get(id=num)
+    if (request.method == 'POST'):
+        sauna.delete()
+        return redirect(to='/sauna')
+    params = {
+        'title': 'Sauna/delete',
+        'id':num,
+        'obj': sauna,
+    }
+    return render(request, 'sauna/delete.html', params)

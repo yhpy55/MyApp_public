@@ -9,14 +9,18 @@
 </head>
 <body class="container">
     <h1 class="display-4 text-primary">{{title}}</h1>
-    <form action="{% url 'edit' id %}" method="post">
+    <p>※以下のレコードを削除します。</p>
+    <table class="table">
+        <tr><th>name</th><td>{{obj.name}}</td></tr>
+        <tr><th>address</th><td>{{obj.address}}</td></tr>
+        <tr><th>fee</th><td>{{obj.fee}}</td></tr>
+        <tr><th>holiday</th><td>{{obj.holiday}}</td></tr>
+    </table>
+    <form action="{% url 'delete' id %}" method="post">
         {% csrf_token %}
-        <table class="table">
-            {{ form.as_table }}
             <tr><th><td>
-                <input type="submit" value="click" class="btn btn-primary mt-2">
+                <input type="submit" value="click" class="btn btn-primary">
             </td></th></tr>
-        </table>
     </form>
 </body>
 </html>
