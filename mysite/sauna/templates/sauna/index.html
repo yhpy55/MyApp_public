@@ -23,6 +23,7 @@
             <td>{{item.address}}</td>
             <td>{{item.fee}}円</td>
             <td>{{item.holiday}}</td>
+            <td><a href="{% url 'edit' item.id %}">Edit</a></td>
         </tr>
     {% endfor %}
     </table>

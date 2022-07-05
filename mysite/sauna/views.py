@@ -24,3 +24,16 @@ def create(request):
         'form': SaunaForm(),
     }
     return render(request, 'sauna/create.html', params)
+
+def edit(request, num):
+    obj = Sauna.objects.get(id=num)
+    if (request.method == 'POST'):
+        friend = SaunaForm(request.POST, instance=obj)
+        friend.save()
+        return redirect(to='/sauna')
+    params = {
+        'title': 'Sauna/edit',
+        'id':num,
+        'form': SaunaForm(instance=obj)
+    }
+    return render(request, 'sauna/edit.html', params)
