@@ -11,10 +11,10 @@
     <h1 class="display-4 text-primary">{{title}}</h1>
     <p>※以下のレコードを削除します。</p>
     <table class="table">
-        <tr><th>name</th><td>{{obj.name}}</td></tr>
-        <tr><th>address</th><td>{{obj.address}}</td></tr>
-        <tr><th>fee</th><td>{{obj.fee}}</td></tr>
-        <tr><th>holiday</th><td>{{obj.holiday}}</td></tr>
+        <tr><th>店舗名</th><td>{{obj.name}}</td></tr>
+        <tr><th>住所</th><td>{{obj.address}}</td></tr>
+        <tr><th>入浴料</th><td>{{obj.fee}}</td></tr>
+        <tr><th>定休日</th><td>{{obj.holiday}}</td></tr>
     </table>
     <form action="{% url 'delete' id %}" method="post">
         {% csrf_token %}
