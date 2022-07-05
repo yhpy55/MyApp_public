@@ -22,9 +22,10 @@ import dev.views as dev
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('dev.urls')),
+    path('dev/', include('dev.urls')),
     path('hello/', hello.index),
     path('hello1/', hello1.index),
-    path('sauna/', sauna.index),
+    # path('sauna/', sauna.index),
+    path('sauna/', include('sauna.urls')),
     # path('dev/', dev.index),
 ]

@@ -1,6 +1,8 @@
 from django.shortcuts import render
+from django.shortcuts import redirect
 from django.http import HttpResponse
 from .models import Sauna
+from .forms import SaunaForm
 
 def index(request):
     data = Sauna.objects.all()
@@ -10,3 +12,15 @@ def index(request):
         'data': data,
     }
     return render(request, 'sauna/index.html', params)
+
+def create(request):
+    if (request.method == 'POST'):
+        obj = Sauna()
+        friend = SaunaForm(request.POST, instance=obj)
+        friend.save()
+        return redirect(to='/sauna')
+    params = {
+        'title': 'Sauna/create',
+        'form': SaunaForm(),
+    }
+    return render(request, 'sauna/create.html', params)
