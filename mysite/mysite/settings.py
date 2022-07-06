@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'dev',
     'hello',
     'hello1',
+    'gourmet',
     'sauna',
 ]
 

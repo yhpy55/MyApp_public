@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path,include
 import hello.views as hello
 import hello1.views as hello1
+import gourmet.views as gourmet
 import sauna.views as sauna
 import dev.views as dev
 
@@ -25,6 +26,7 @@ urlpatterns = [
     path('dev/', include('dev.urls')),
     path('hello/', hello.index),
     path('hello1/', hello1.index),
+    path('gourmet', gourmet.index),
     # path('sauna/', sauna.index),
     path('sauna/', include('sauna.urls')),
     # path('dev/', dev.index),
