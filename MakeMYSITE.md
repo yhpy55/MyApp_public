@@ -1,54 +1,55 @@
-Django3.0.4 Friendモデルを使ってテストアプリを作成する手順
+Django3.0.4 テストアプリ作成手順
 -----
-### 1. Djangoプロジェクト(mysite)作成
-コンソールを開いて以下のコマンドを入力する。（MyDjangoフォルダが存在しない場合は作成する）
+### 1-1. Djangoプロジェクト(MyDjango)作成
+コンソールを開いて以下のコマンドを入力する。（GitHub, MyDjangoフォルダが存在しない場合は作成する）
 ```
 cd (MyDocuments)/GitHub/MyDjango
-django-admin startproject mysite
-cd mysite
-python manage.py runserver
+django-admin startproject MyDjango
+cd MyDjango
+python manage.py runserver 8888
 ```
 
-### 2. runserverの起動確認
+### 1-2. runserverの起動確認
 以下のURLをブラウザで開き、Djangoのスタートページが表示されることを確認する。
 ```
-http://localhost:8000/
+http://localhost:8888/
 ```
 -----
-### 3. Djangoアプリケーション作成
+### 1-3. Djangoアプリケーション作成
 ```
-python manage.py startapp hello
+python manage.py startapp testapp
 ```
-### [hello/views.py] 編集
+### 1-4. [testapp/views.py] 編集
 ```
 from django.http import HttpResponse
+
 def index(request):
-   return HttpResponse("Hello Django.")
+   return HttpResponse("Django! testapp.")
 ```
-### 4. [mysite/urls.py] 編集
+### 1-5. [MyDjango/urls.py] 編集
 ```
-import hello.views as hello
+import testapp.views as testapp
 
 urlpatterns = [
     （中略）
-    path('hello/', hello.index),
+    path('testapp/', testapp.index),
 ]
 ```
-### 5. [mysite/settings.py] 編集
+### 1-6. [MyDjango/settings.py] 編集
 ```
 INSTALLED_APPS = [
     （中略）
-    'hello',
+    'testapp',
 ]
 ```
 
-### 6. 動作確認：Hello Django.
-以下のURLをブラウザで開き、Hello Django. が表示されることを確認する。
+### 1-7. 動作確認：testapp Django.
+以下のURLをブラウザで開き、Django! testapp. が表示されることを確認する。
 ```
-http://localhost:8000/
+http://localhost:8888/
 ```
 -----
-### 7. [hello/models.py] 作成
+### 2-1. [testapp/models.py] 作成
 ```
 from django.db import models
 
@@ -63,22 +64,22 @@ class Friend(models.Model):
         return f'<Friend:id= {str(self.id)}, {self.name} ({str(self.age)})>'
 ```
 
-### 8. makemigrations/migrate
+### 2-2. makemigrations/migrate
 ```
-$ python manage.py makemigrations hello
+$ python manage.py makemigrations testapp
 $ python manage.py migrate
 ```
 
-### 9. createsuperuser
+### 2-3. createsuperuser
 ```
 $ python manage.py createsuperuser
 Username (leave blank to use 'django'): admin
-Email address: django@mysite.com
+Email address: django@MyDjango.com
 Password: 
 Password (again): 
 ```
 
-### 10. [hello/admin.py] 編集
+### 2-4. [testapp/admin.py] 編集
 ```
 from django.contrib import admin
 from .models import Friend
@@ -86,16 +87,16 @@ from .models import Friend
 admin.site.register(Friend)
 ```
 
-### 11. 動作確認：[Django administration]画面
+### 2-5. 動作確認：[Django administration]画面
 以下のURLをブラウザで開き、[Django administration]画面が表示されることを確認する。
 ```
-http://localhost:8000/admin/
+http://localhost:8888/admin/
 ```
 -----
-### 12. テストユーザ追加  
+### 3-1. テストユーザ追加  
 [Django administration]画面の右上[add friend +]ボタンより3ユーザくらい追加する。
 
-### 13. [hello/views.py] 編集
+### 3-2. [testapp/views.py] 編集
 ```
 from django.shortcuts import render
 from django.http import HttpResponse
@@ -104,14 +105,14 @@ from .models import Friend
 def index(request):
     data = Friend.objects.all()
     params = {
-        'title': 'Hello',
+        'title': 'testapp',
         'message': 'member list',
         'data': data,
     }
-    return render(request, 'hello/index.html', params)
+    return render(request, 'testapp/index.html', params)
 ```
 
-### 14. [hello/templates/hello/index.html] 作成
+### 3-3. [testapp/templates/testapp/index.html] 作成
 bootstrapリンク：https://getbootstrap.jp/docs/4.3/getting-started/introduction/#css
 ```
 {% load static %}
@@ -151,7 +152,7 @@ bootstrapリンク：https://getbootstrap.jp/docs/4.3/getting-started/introducti
 </html>
 ```
 
-### 15. [hello/urls.py] 編集
+### 3-4. [testapp/urls.py] 編集
 ```
 from django.urls import path
 from . import views
@@ -161,10 +162,10 @@ urlpatterns = [
 ]
 ```
 
-### 16. 動作確認：テストアプリ
+### 3-5. 動作確認：テストアプリ
 以下のURLをブラウザで開き、登録したユーザがリスト表示されることを確認する。
 ```
-http://localhost:8000/hello/
+http://localhost:8888/testapp/
 ```
 
 以上。ユーザ一覧表示アプリの動作確認まで
@@ -173,8 +174,8 @@ http://localhost:8000/hello/
 
 ユーザ一覧表示アプリにcreate, edit, delete画面を追加する
 -----
-## create画面作成
-### 17. [hello/forms.py] 編集
+## 4-1. create画面作成
+### 17. [testapp/forms.py] 編集
 ```
 from django import forms
 from .models import Friend
@@ -184,7 +185,7 @@ class FriendForm(forms.ModelForm):
         model = Friend
         fields = ['name','mail','gender','age','birthday']
 ```
-### 18. [hello/views.py] 編集
+### 18. [testapp/views.py] 編集
 ```
 from django.shortcuts import redirect
 from .forms import FriendForm
@@ -195,14 +196,14 @@ def create(request):
         obj = Friend()
         friend = FriendForm(request.POST, instance=obj)
         friend.save()
-        return redirect(to='/hello')
+        return redirect(to='/testapp')
     params = {
-        'title': 'Hello',
+        'title': 'testapp',
         'form': FriendForm(),
     }
-    return render(request, 'hello/create.html', params)
+    return render(request, 'testapp/create.html', params)
 ```
-### 19. [template/hello/create.html] 編集
+### 19. [template/testapp/create.html] 編集
 ```
 {% load static %}
 <!DOCTYPE html>
@@ -226,7 +227,7 @@ def create(request):
 </body>
 </html>
 ```
-### 19. [hello/urls.py] 編集
+### 19. [testapp/urls.py] 編集
 ```
 urlpatterns = [
     （略）
@@ -236,28 +237,28 @@ urlpatterns = [
 ### 20. 動作確認：create画面
 以下のURLをブラウザで開き、画面が表示されることを確認する。
 ```
-http://localhost:8000/hello/create
+http://localhost:8888/testapp/create
 ```
 - テストユーザを追加登録し、一覧画面に遷移することを確認する。
 - 一覧画面で追加ユーザが表示されることを確認する。
 -----
 ## edit画面作成
-### 21. [hello/views.py] 編集：edit関数
+### 21. [testapp/views.py] 編集：edit関数
 ```
 def edit(request, num):
     obj = Friend.objects.get(id=num)
     if (request.method == 'POST'):
         friend = FriendForm(request.POST, instance=obj)
         friend.save()
-        return redirect(to='/hello')
+        return redirect(to='/testapp')
     params = {
-        'title': 'Hello',
+        'title': 'testapp',
         'id':num,
         'form': FriendForm(instance=obj)
     }
-    return render(request, 'hello/edit.html', params)
+    return render(request, 'testapp/edit.html', params)
 ```
-### 22. [hello/edit.html] 編集：edit画面
+### 22. [testapp/edit.html] 編集：edit画面
 ```
 {% load static %}
 <!DOCTYPE html>
@@ -282,7 +283,7 @@ def edit(request, num):
 </body>
 </html>
 ```
-### 23. [hello/templates/index.html] 編集
+### 23. [testapp/templates/index.html] 編集
 ```
     {% for item in data %}
         <tr>
@@ -291,7 +292,7 @@ def edit(request, num):
         </tr>
     {% endfor %}
 ```
-### 24. [hello/urls.py] 編集
+### 24. [testapp/urls.py] 編集
 ```
 urlpatterns = [
 
@@ -300,21 +301,21 @@ urlpatterns = [
 ```
 -----
 ## delete画面作成
-### 21. [hello/views.py] 編集：delete関数
+### 21. [testapp/views.py] 編集：delete関数
 ```
 def delete(request, num):
     friend = Friend.objects.get(id=num)
     if (request.method == 'POST'):
         friend.delete()
-        return redirect(to='/hello')
+        return redirect(to='/testapp')
     params = {
-        'title': 'Hello',
+        'title': 'testapp',
         'id':num,
         'obj': friend,
     }
-    return render(request, 'hello/delete.html', params)
+    return render(request, 'testapp/delete.html', params)
 ```
-### 22. [hello/edit.html] 編集：delete画面
+### 22. [testapp/edit.html] 編集：delete画面
 ```
 {% load static %}
 <!DOCTYPE html>
@@ -343,7 +344,7 @@ def delete(request, num):
 </body>
 </html>
 ```
-### 23. [hello/templates/index.html] 編集
+### 23. [testapp/templates/index.html] 編集
 ```
     {% for item in data %}
         <tr>
@@ -353,7 +354,7 @@ def delete(request, num):
         </tr>
     {% endfor %}
 ```
-### 24. [hello/urls.py] 編集
+### 24. [testapp/urls.py] 編集
 ```
 urlpatterns = [
     (中略)
@@ -362,7 +363,7 @@ urlpatterns = [
 ]
 ```
 -----
-### 25. [hello/views.py] 編集：ジェネリックビュー
+### 25. [testapp/views.py] 編集：ジェネリックビュー
 ```
 from django.views.generic import ListView
 from django.views.generic import DetailView
@@ -374,7 +375,7 @@ class FriendList(ListView):
 class FriendDetail(DetailView):
     model = Friend
 ```
-### 26. [hello/urls.py] 編集：ジェネリックビュー
+### 26. [testapp/urls.py] 編集：ジェネリックビュー
 ```
 from .views import FriendList, FriendDetail
 ```
@@ -385,7 +386,7 @@ urlpatterns = [
     path('detail/<int:pk>', FriendDetail.as_view()),
 ]
 ```
-### 27. [templates/hello/friend_list.html] 編集：ジェネリックビュー
+### 27. [templates/testapp/friend_list.html] 編集：ジェネリックビュー
 ```
 {% load static %}
 <!DOCTYPE html>
@@ -407,14 +408,14 @@ urlpatterns = [
         <tr>
             <th>{{item.id}}</th>
             <td>{{item.name}}</td>
-            <td><a href="/hello/detail/{{item.id}}">detail</a></td>
+            <td><a href="/testapp/detail/{{item.id}}">detail</a></td>
         </tr>
         {% endfor %}
     </table>
 </body>
 </html>
 ```
-### 28. [hello/templates/friend_detail.html] 編集：ジェネリックビュー
+### 28. [testapp/templates/friend_detail.html] 編集：ジェネリックビュー
 ```
 {% load static %}
 <!DOCTYPE html>
@@ -452,7 +453,7 @@ urlpatterns = [
 </html>
 ```
 -----
-### 29. [hello/templates/hello/find.html] 編集：find画面
+### 29. [testapp/templates/testapp/find.html] 編集：find画面
 ```
 {% load static %}
 <!DOCTYPE html>
@@ -490,7 +491,7 @@ urlpatterns = [
 </body>
 </html>
 ```
-### 30. [hello/views.py] 編集：find画面
+### 30. [testapp/views.py] 編集：find画面
 ```
 from .forms import FindForm
 ```
@@ -506,19 +507,19 @@ def find(request):
         form = FindForm()
         data = Friend.objects.all()
     params = {
-        'title': 'Hello',
+        'title': 'testapp',
         'message': msg,
         'form': form,
         'data': data,
     }
-    return render(request, 'hello/find.html', params)
+    return render(request, 'testapp/find.html', params)
 ```
-### 31. [hello/forms.py] 編集：find画面
+### 31. [testapp/forms.py] 編集：find画面
 ```
 class FindForm(forms.Form):
     find = forms.CharField(label='Find', required=False, widget=forms.TextInput(attrs={'class':'form-control'}))
 ```
-### 32. [hello/urls.py] 編集：find画面
+### 32. [testapp/urls.py] 編集：find画面
 ```
 urlpatterns = [
 
