@@ -90,7 +90,7 @@ $ python manage.py makemigrations TestApp
 $ python manage.py migrate
 ```
 
-### 2-3. createsuperuser
+### 2-3. createsuperuser 実行
 - 以下のコマンドを実行する。
 ```
 $ python manage.py createsuperuser
