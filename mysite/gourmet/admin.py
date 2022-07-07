@@ -1,4 +1,4 @@
 from django.contrib import admin
-from .models import MyList
+from .models import Gourmet
 
-admin.site.register(MyList)
+admin.site.register(Gourmet)

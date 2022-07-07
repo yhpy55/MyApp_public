@@ -1,9 +1,9 @@
 from django.db import models
 
-class MyList(models.Model):
+class Gourmet(models.Model):
     name = models.CharField(max_length=100)
     station = models.CharField(max_length=30)
-    jenre = models.CharField(max_length=30)
+    genre = models.CharField(max_length=30)
     holiday = models.CharField(max_length=30)
     wifi = models.BooleanField()
     url = models.URLField()
@@ -11,4 +11,4 @@ class MyList(models.Model):
     registdate = models.DateField()
 
     def __str__(self):
-        return f'<MyList:id= {self.name} {self.station} {self.jenre} ({str(self.registdate)})>'
+        return f'<Gourmet:id= {self.name} {self.station} {self.jenre} ({str(self.registdate)})>'

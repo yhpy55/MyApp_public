@@ -26,8 +26,9 @@ urlpatterns = [
     path('dev/', include('dev.urls')),
     path('hello/', hello.index),
     path('hello1/', hello1.index),
-    path('gourmet', gourmet.index),
+    # path('gourmet', gourmet.index),
     # path('sauna/', sauna.index),
+    path('gourmet/', include('gourmet.urls')),
     path('sauna/', include('sauna.urls')),
     # path('dev/', dev.index),
 ]
