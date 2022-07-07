@@ -193,7 +193,7 @@ urlpatterns = [
 http://localhost:8000/TestApp/
 ```
 
-- 以上でTestAppのユーザ一覧表示の動作確認が完了となる。
+#### 以上でTestAppのユーザ一覧表示の動作確認が完了となる。
 
 ---
 
