@@ -1,26 +1,44 @@
-Django3.0.4 テストアプリ作成手順
+Django3.0.4 TestAppアプリ作成手順
+-
+-----
+### 0. 前提条件
+- Python 3.10.x
+- Django 3.0.4
+- Django project名：MyDjango
+- Django app名：TestApp
+- 作業用ディレクトリ：(???)/GitHub/MyDjango
+ (例)C:\Users\0502_Python\Documents\GitHub\MyDjango
+- 使用ツール：VSCode or PyCharm
 -----
 ### 1-1. Djangoプロジェクト(MyDjango)作成
-コンソールを開いて以下のコマンドを入力する。（GitHub, MyDjangoフォルダが存在しない場合は作成する）
+- (???)\GitHub\MyDjangoフォルダを開く（存在しない場合は作成する）
 ```
-cd (MyDocuments)/GitHub/MyDjango
+cd (???)/GitHub/MyDjango
+```
+- コンソールを開いて以下のコマンドを入力する。
+```
 django-admin startproject MyDjango
 cd MyDjango
-python manage.py runserver 8888
+python manage.py runserver 8000
 ```
 
-### 1-2. runserverの起動確認
-以下のURLをブラウザで開き、Djangoのスタートページが表示されることを確認する。
+### 1-2. runserverの実行と起動確認
+- コンソールを開いて以下のコマンドを入力する。
 ```
-http://localhost:8888/
+python manage.py runserver 8000
+```
+- ブラウザで以下のURLを開き、Djangoのスタートページ(ロケット離陸)が表示されることを確認する。
+```
+http://localhost:8000/
 ```
 -----
-### 1-3. Djangoアプリケーション作成
+### 1-3. TestAppアプリの作成(startapp)
 ```
 python manage.py startapp TestApp
 ```
 ### 1-4. [TestApp/views.py] 編集
 ```
+from django.shortcuts import render
 from django.http import HttpResponse
 
 def index(request):
@@ -28,6 +46,8 @@ def index(request):
 ```
 ### 1-5. [MyDjango/urls.py] 編集
 ```
+from django.contrib import admin
+from django.urls import path
 import TestApp.views as TestApp
 
 urlpatterns = [
@@ -44,16 +64,16 @@ INSTALLED_APPS = [
 ```
 
 ### 1-7. 動作確認：TestApp Django.
-以下のURLをブラウザで開き、Django! TestApp. が表示されることを確認する。
+- ブラウザで以下のURLを開き、Django! TestApp. が表示されることを確認する。
 ```
-http://localhost:8888/
+http://localhost:8000/
 ```
 -----
 ### 2-1. [TestApp/models.py] 作成
 ```
 from django.db import models
 
-class Friend(models.Model):
+class MyList(models.Model):
     name = models.CharField(max_length=100)
     mail = models.EmailField(max_length=200)
     gender = models.BooleanField()
@@ -61,59 +81,64 @@ class Friend(models.Model):
     birthday = models.DateField()
 
     def __str__(self):
-        return f'<Friend:id= {str(self.id)}, {self.name} ({str(self.age)})>'
+        return f'<MyList:id= {str(self.id)}, {self.name} ({str(self.age)})>'
 ```
 
-### 2-2. makemigrations/migrate
+### 2-2. makemigrations/migrate 実行
 ```
 $ python manage.py makemigrations TestApp
 $ python manage.py migrate
 ```
 
 ### 2-3. createsuperuser
+- 以下のコマンドを実行する。
 ```
 $ python manage.py createsuperuser
+```
+- 管理用ユーザ名、メールアドレス、パスワードを入力する。
+```
 Username (leave blank to use 'django'): admin
-Email address: django@MyDjango.com
-Password: 
-Password (again): 
+Email address: admin@mydjango.com
+Password: ****************
+Password (again): ****************
 ```
 
 ### 2-4. [TestApp/admin.py] 編集
 ```
 from django.contrib import admin
-from .models import Friend
+from .models import MyList
 
-admin.site.register(Friend)
+admin.site.register(MyList)
 ```
 
 ### 2-5. 動作確認：[Django administration]画面
-以下のURLをブラウザで開き、[Django administration]画面が表示されることを確認する。
+ブラウザで以下のURLを開き、[Django administration]画面が表示されることを確認する。
 ```
-http://localhost:8888/admin/
+http://localhost:8000/admin/
 ```
 -----
 ### 3-1. テストユーザ追加  
-[Django administration]画面の右上[add friend +]ボタンより3ユーザくらい追加する。
+- [Django administration]画面を表示する。
+- 画面の右上[add MyList +]ボタンより3ユーザくらい追加する。
 
 ### 3-2. [TestApp/views.py] 編集
 ```
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Friend
+from .models import MyList
 
 def index(request):
-    data = Friend.objects.all()
+    data = MyList.objects.all()
     params = {
         'title': 'TestApp',
-        'message': 'member list',
+        'message': 'メンバー一覧',
         'data': data,
     }
     return render(request, 'TestApp/index.html', params)
 ```
 
 ### 3-3. [TestApp/templates/TestApp/index.html] 作成
-bootstrapリンク：https://getbootstrap.jp/docs/4.3/getting-started/introduction/#css
+- (参考)bootstrapリンク：https://getbootstrap.jp/docs/4.3/getting-started/introduction/#css
 ```
 {% load static %}
 <!DOCTYPE html>
@@ -163,12 +188,12 @@ urlpatterns = [
 ```
 
 ### 3-5. 動作確認：テストアプリ
-以下のURLをブラウザで開き、登録したユーザがリスト表示されることを確認する。
+- ブラウザで以下のURLを開き、登録したユーザがリスト表示されることを確認する。
 ```
-http://localhost:8888/TestApp/
+http://localhost:8000/TestApp/
 ```
 
-以上。ユーザ一覧表示アプリの動作確認まで
+- 以上でTestAppのユーザ一覧表示の動作確認が完了となる。
 
 ---
 
@@ -178,28 +203,28 @@ http://localhost:8888/TestApp/
 ### 17. [TestApp/forms.py] 編集
 ```
 from django import forms
-from .models import Friend
+from .models import MyList
 
-class FriendForm(forms.ModelForm):
+class MyListForm(forms.ModelForm):
     class Meta:
-        model = Friend
+        model = MyList
         fields = ['name','mail','gender','age','birthday']
 ```
 ### 18. [TestApp/views.py] 編集
 ```
 from django.shortcuts import redirect
-from .forms import FriendForm
+from .forms import MyListForm
 ```
 ```
 def create(request):
     if (request.method == 'POST'):
-        obj = Friend()
-        friend = FriendForm(request.POST, instance=obj)
-        friend.save()
+        obj = MyList()
+        MyList = MyListForm(request.POST, instance=obj)
+        MyList.save()
         return redirect(to='/TestApp')
     params = {
         'title': 'TestApp',
-        'form': FriendForm(),
+        'form': MyListForm(),
     }
     return render(request, 'TestApp/create.html', params)
 ```
@@ -237,7 +262,7 @@ urlpatterns = [
 ### 20. 動作確認：create画面
 以下のURLをブラウザで開き、画面が表示されることを確認する。
 ```
-http://localhost:8888/TestApp/create
+http://localhost:8000/TestApp/create
 ```
 - テストユーザを追加登録し、一覧画面に遷移することを確認する。
 - 一覧画面で追加ユーザが表示されることを確認する。
@@ -246,15 +271,15 @@ http://localhost:8888/TestApp/create
 ### 21. [TestApp/views.py] 編集：edit関数
 ```
 def edit(request, num):
-    obj = Friend.objects.get(id=num)
+    obj = MyList.objects.get(id=num)
     if (request.method == 'POST'):
-        friend = FriendForm(request.POST, instance=obj)
-        friend.save()
+        MyList = MyListForm(request.POST, instance=obj)
+        MyList.save()
         return redirect(to='/TestApp')
     params = {
         'title': 'TestApp',
         'id':num,
-        'form': FriendForm(instance=obj)
+        'form': MyListForm(instance=obj)
     }
     return render(request, 'TestApp/edit.html', params)
 ```
@@ -304,14 +329,14 @@ urlpatterns = [
 ### 21. [TestApp/views.py] 編集：delete関数
 ```
 def delete(request, num):
-    friend = Friend.objects.get(id=num)
+    MyList = MyList.objects.get(id=num)
     if (request.method == 'POST'):
-        friend.delete()
+        MyList.delete()
         return redirect(to='/TestApp')
     params = {
         'title': 'TestApp',
         'id':num,
-        'obj': friend,
+        'obj': MyList,
     }
     return render(request, 'TestApp/delete.html', params)
 ```
@@ -369,24 +394,24 @@ from django.views.generic import ListView
 from django.views.generic import DetailView
 ```
 ```
-class FriendList(ListView):
-    model = Friend
+class MyListList(ListView):
+    model = MyList
 
-class FriendDetail(DetailView):
-    model = Friend
+class MyListDetail(DetailView):
+    model = MyList
 ```
 ### 26. [TestApp/urls.py] 編集：ジェネリックビュー
 ```
-from .views import FriendList, FriendDetail
+from .views import MyListList, MyListDetail
 ```
 ```
 urlpatterns = [
 
-    path('list', FriendList.as_view()),
-    path('detail/<int:pk>', FriendDetail.as_view()),
+    path('list', MyListList.as_view()),
+    path('detail/<int:pk>', MyListDetail.as_view()),
 ]
 ```
-### 27. [templates/TestApp/friend_list.html] 編集：ジェネリックビュー
+### 27. [templates/TestApp/MyList_list.html] 編集：ジェネリックビュー
 ```
 {% load static %}
 <!DOCTYPE html>
@@ -397,7 +422,7 @@ urlpatterns = [
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" crossorigin="anonymous">
 </head>
 <body class="container">
-    <h1 class="display-4 text-primary">Friends List</h1>
+    <h1 class="display-4 text-primary">MyLists List</h1>
     <table class="table">
         <tr>
             <th>id</th>
@@ -415,7 +440,7 @@ urlpatterns = [
 </body>
 </html>
 ```
-### 28. [TestApp/templates/friend_detail.html] 編集：ジェネリックビュー
+### 28. [TestApp/templates/MyList_detail.html] 編集：ジェネリックビュー
 ```
 {% load static %}
 <!DOCTYPE html>
@@ -426,7 +451,7 @@ urlpatterns = [
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" crossorigin="anonymous">
 </head>
 <body class="container">
-    <h1 class="display-4 text-primary">Friends List</h1>
+    <h1 class="display-4 text-primary">MyLists List</h1>
     <table class="table">
         <tr>
             <th>id</th>
@@ -500,12 +525,12 @@ def find(request):
     if (request.method == 'POST'):
         form = FindForm(request.POST)
         find = request.POST['find']
-        data = Friend.objects.filter(name=find)
+        data = MyList.objects.filter(name=find)
         msg = 'Result: ' + str(data.count())
     else:
         msg = 'search words...'
         form = FindForm()
-        data = Friend.objects.all()
+        data = MyList.objects.all()
     params = {
         'title': 'TestApp',
         'message': msg,
