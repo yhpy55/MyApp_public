@@ -5,34 +5,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{title}}</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          crossorigin="anonymous">
 </head>
 <body class="container">
-    <h1 class="display-4 text-primary">{{title}}</h1>
-    <p class="h5 mt-4">{{message|safe}}</p>
-    <table class="table">
-        <tr>
-            <th>1.name</th>
-            <th>2.station</th>
-            <th>3.genre</th>
-            <th>4.holiday</th>
-            <th>5.wifi</th>
-            <th>6.url</th>
-            <th>7.mail</th>
-            <th>8.registdate</th>
-        </tr>
+<h1 class="display-4 text-primary">{{title}}</h1>
+<p class="h5 mt-4">{{message|safe}}</p>
+<table class="table">
+    <tr>
+        <th>1.name</th>
+        <th>2.station</th>
+        <th>3.genre</th>
+        <th>4.holiday</th>
+        <th>5.wifi</th>
+        <th>6.url</th>
+        <th>7.mail</th>
+        <th>8.registdate</th>
+    </tr>
     {% for item in data %}
-        <tr>
-            <td>{{item.name}}</td>
-            <td>{{item.station}}</td>
-            <td>{{item.genre}}</td>
-            <td>{{item.holiday}}</td>
-            <td>{{item.wifi}}</td>
-            <td>{{item.url}}</td>
-            <td>{{item.mail}}</td>
-            <td>{{item.registdate}}</td>
-        </tr>
+    <tr>
+        <td>{{item.name}}</td>
+        <td>{{item.station}}</td>
+        <td>{{item.genre}}</td>
+        <td>{{item.holiday}}</td>
+        <td>{{item.wifi}}</td>
+        <td>{{item.url}}</td>
+        <td>{{item.mail}}</td>
+        <td>{{item.registdate}}</td>
+    </tr>
     {% endfor %}
-    </table>
+</table>
 </body>
 </html>
