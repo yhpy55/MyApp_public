@@ -2,6 +2,9 @@ from django.shortcuts import render
 from django.http import HttpResponse
 import urllib.request,json,requests
 
+def index2(request):
+    return HttpResponse('ttt')
+
 def index(request):
    str = '<h3>Hello Django.</h3>'
    # url = 'https://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key=76cb152c603e76a8&large_area=Z011&address=%E8%B5%A4%E5%9D%82&format=json'
