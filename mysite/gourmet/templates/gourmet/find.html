@@ -38,18 +38,18 @@
         <th>ジャンル</th>
         <th>定休日</th>
         <th>Wi-Fi</th>
-        <th>URL</th>
-        <th>登録日</th>
+        <th>禁煙・喫煙</th>
+        <th>クーポンURL</th>
     </tr>
     {% for item in data %}
     <tr>
         <td>{{item.name}}</td>
         <td>{{item.station}}</td>
         <td>{{item.genre}}</td>
-        <td>{{item.holiday}}</td>
-        <td>{% if item.wifi == True %}有{% endif %}</td>
-        <td>{{item.url}}</td>
-        <td>{{item.registdate}}</td>
+        <td>{{item.holiday|truncatechars:10}}</td>
+        <td>{{item.wifi}}</td>
+        <td>{{item.non_smoking}}</td>
+        <td>{{item.coupon_urls}}</td>
     </tr>
     {% endfor %}
 </table>
