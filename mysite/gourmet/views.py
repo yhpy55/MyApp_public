@@ -86,15 +86,18 @@ def download(request):
         s_coupon_urls = jsn["results"]["shop"][i]["coupon_urls"]["pc"]
         shop_id = jsn["results"]["shop"][i]["id"]
 
-        g = Gourmet.objects.create(name=f"{s_name}",
-                                   station=f"{s_station}",
-                                   genre=f"{s_genre}",
-                                   holiday=f"{s_holiday}",
-                                   wifi=f"{s_wifi}",
-                                   non_smoking=f"{s_non_smoking}",
-                                   urls=f"{s_urls}",
-                                   coupon_urls=f"{s_coupon_urls}",
-                                   shop_id=f"{shop_id}", )
+        try:
+            g = Gourmet.objects.get(shop_id=f"{shop_id}")
+        except:
+            c = Gourmet.objects.create(name=f"{s_name}",
+                                       station=f"{s_station}",
+                                       genre=f"{s_genre}",
+                                       holiday=f"{s_holiday}",
+                                       wifi=f"{s_wifi}",
+                                       non_smoking=f"{s_non_smoking}",
+                                       urls=f"{s_urls}",
+                                       coupon_urls=f"{s_coupon_urls}",
+                                       shop_id=f"{shop_id}", )
 
     return render(request, 'gourmet/find.html', params)
 
