@@ -21,8 +21,9 @@ def find(request):
         msg = '飲み屋検索結果'
         form = FindForm(request.POST)
         findstr = request.POST['find']
-        data = Gourmet.objects.filter(
-            Q(name__contains=findstr) | Q(station__contains=findstr) | Q(genre__contains=findstr))
+        data = Gourmet.objects.filter(Q(name__contains=findstr) | Q(station__contains=findstr) |
+                                      Q(genre__contains=findstr)| Q(holiday__contains=findstr) |
+                                      Q(non_smoking__contains=findstr))
     else:
         msg = '飲み屋検索'
         form = FindForm()
@@ -44,6 +45,7 @@ def download2(request):
         'data': data,
     }
     return render(request, 'gourmet/download.html', params)
+
 
 def download(request):
     if (request.method == 'POST'):
@@ -92,14 +94,14 @@ def download(request):
         s_urls = jsn["results"]["shop"][i]["urls"]["pc"]
         s_coupon_urls = jsn["results"]["shop"][i]["coupon_urls"]["pc"]
 
-        g = Gourmet.objects.create(name = f"{s_name}",
-                                   station = f"{s_station}",
-                                   genre = f"{s_genre}",
-                                   holiday = f"{s_holiday}",
-                                   wifi = f"{s_wifi}",
-                                   non_smoking = f"{s_non_smoking}",
-                                   urls = f"{s_urls}",
-                                   coupon_urls = f"{s_coupon_urls}")
+        g = Gourmet.objects.create(name=f"{s_name}",
+                                   station=f"{s_station}",
+                                   genre=f"{s_genre}",
+                                   holiday=f"{s_holiday}",
+                                   wifi=f"{s_wifi}",
+                                   non_smoking=f"{s_non_smoking}",
+                                   urls=f"{s_urls}",
+                                   coupon_urls=f"{s_coupon_urls}")
 
     return render(request, 'gourmet/find.html', params)
 
