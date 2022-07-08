@@ -10,6 +10,7 @@ class Gourmet(models.Model):
     non_smoking = models.CharField(max_length=10,null=True)
     urls = models.URLField(max_length=100,null=True)
     coupon_urls = models.URLField(max_length=100,null=True)
+    shop_id = models.CharField(max_length=10,default=0)
 
     def __str__(self):
         return f'<Gourmet:id= {self.name} {self.station} {self.genre}>'
