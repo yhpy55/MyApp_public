@@ -18,14 +18,14 @@ def index(request):
 
 def find(request):
     if (request.method == 'POST'):
-        msg = '飲み屋検索結果'
+        msg = '居酒屋検索／リスト更新→'
         form = FindForm(request.POST)
         findstr = request.POST['find']
         data = Gourmet.objects.filter(Q(name__contains=findstr) | Q(station__contains=findstr) |
                                       Q(genre__contains=findstr) | Q(holiday__contains=findstr) |
                                       Q(non_smoking__contains=findstr))
     else:
-        msg = '飲み屋検索'
+        msg = '居酒屋検索／リスト更新→'
         form = FindForm()
         data = Gourmet.objects.all()
     params = {
