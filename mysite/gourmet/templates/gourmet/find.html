@@ -46,10 +46,10 @@
         <td>{{item.name}}</td>
         <td>{{item.station}}</td>
         <td>{{item.genre}}</td>
-        <td>{{item.holiday|truncatechars:10}}</td>
+        <td>{{item.holiday|truncatechars:15}}</td>
         <td>{{item.wifi}}</td>
         <td>{{item.non_smoking}}</td>
-        <td>{{item.coupon_urls}}</td>
+        <td><a href="{{item.coupon_urls}}">クーポン</a></td>
     </tr>
     {% endfor %}
 </table>
