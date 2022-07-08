@@ -5,11 +5,11 @@ class Gourmet(models.Model):
     name = models.CharField(max_length=100)
     station = models.CharField(max_length=30)
     genre = models.CharField(max_length=30)
-    holiday = models.CharField(max_length=30)
-    wifi = models.BooleanField()
-    url = models.URLField()
-    mail = models.EmailField(max_length=50)
-    registdate = models.DateField()
+    holiday = models.CharField(max_length=30,null=True)
+    wifi = models.CharField(max_length=10,null=True)
+    non_smoking = models.CharField(max_length=10,null=True)
+    urls = models.URLField(max_length=100,null=True)
+    coupon_urls = models.URLField(max_length=100,null=True)
 
     def __str__(self):
-        return f'<Gourmet:id= {self.name} {self.station} {self.jenre} ({str(self.registdate)})>'
+        return f'<Gourmet:id= {self.name} {self.station} {self.genre}>'
