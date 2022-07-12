@@ -13,25 +13,23 @@
 <p class="h5 mt-4">{{message|safe}}</p>
 <table class="table">
     <tr>
-        <th>1.name</th>
-        <th>2.station</th>
-        <th>3.genre</th>
-        <th>4.holiday</th>
-        <th>5.wifi</th>
-        <th>6.url</th>
-        <th>7.mail</th>
-        <th>8.registdate</th>
+        <th>店名</th>
+        <th>最寄駅</th>
+        <th>ジャンル</th>
+        <th>定休日</th>
+        <th>Wi-Fi</th>
+        <th>禁煙・喫煙</th>
+        <th>クーポンURL</th>
     </tr>
     {% for item in data %}
     <tr>
         <td>{{item.name}}</td>
         <td>{{item.station}}</td>
         <td>{{item.genre}}</td>
-        <td>{{item.holiday}}</td>
+        <td>{{item.holiday|truncatechars:15}}</td>
         <td>{{item.wifi}}</td>
-        <td>{{item.url}}</td>
-        <td>{{item.mail}}</td>
-        <td>{{item.registdate}}</td>
+        <td>{{item.non_smoking}}</td>
+        <td><a href="{{item.coupon_urls}}" target="_blank">クーポン</a></td>
     </tr>
     {% endfor %}
 </table>
