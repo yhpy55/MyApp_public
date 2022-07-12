@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
+import top.views as top
 import hello.views as hello
 import hello1.views as hello1
 import gourmet.views as gourmet
@@ -22,6 +23,8 @@ import sauna.views as sauna
 import dev.views as dev
 
 urlpatterns = [
+    path('', top.index),
+    path('top/', top.index),
     path('admin/', admin.site.urls),
     path('dev/', include('dev.urls')),
     path('hello/', hello.index),
