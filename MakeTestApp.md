@@ -199,8 +199,8 @@ http://localhost:8000/TestApp/
 
 ユーザ一覧表示アプリにcreate, edit, delete画面を追加する
 -----
-## 4-1. create画面作成
-### 17. [TestApp/forms.py] 編集
+## 4. create画面作成
+### 4-1. create画面：[TestApp/forms.py] 編集
 ```
 from django import forms
 from .models import MyList
@@ -210,7 +210,7 @@ class MyListForm(forms.ModelForm):
         model = MyList
         fields = ['name','mail','gender','age','birthday']
 ```
-### 18. [TestApp/views.py] 編集
+### 4-2. create画面：[TestApp/views.py] 編集
 ```
 from django.shortcuts import redirect
 from .forms import MyListForm
@@ -228,7 +228,7 @@ def create(request):
     }
     return render(request, 'TestApp/create.html', params)
 ```
-### 19. [template/TestApp/create.html] 編集
+### 4-3. create画面：[template/TestApp/create.html] 編集
 ```
 {% load static %}
 <!DOCTYPE html>
@@ -252,14 +252,14 @@ def create(request):
 </body>
 </html>
 ```
-### 19. [TestApp/urls.py] 編集
+### 4-4. create画面：[TestApp/urls.py] 編集
 ```
 urlpatterns = [
     （略）
     path('create', views.create, name='create'),
 ]
 ```
-### 20. 動作確認：create画面
+### 4-5. create画面：表示確認
 以下のURLをブラウザで開き、画面が表示されることを確認する。
 ```
 http://localhost:8000/TestApp/create
@@ -267,8 +267,8 @@ http://localhost:8000/TestApp/create
 - テストユーザを追加登録し、一覧画面に遷移することを確認する。
 - 一覧画面で追加ユーザが表示されることを確認する。
 -----
-## edit画面作成
-### 21. [TestApp/views.py] 編集：edit関数
+## 5. edit画面作成
+### 5-1. edit画面：[TestApp/views.py] 編集
 ```
 def edit(request, num):
     obj = MyList.objects.get(id=num)
@@ -283,7 +283,7 @@ def edit(request, num):
     }
     return render(request, 'TestApp/edit.html', params)
 ```
-### 22. [TestApp/edit.html] 編集：edit画面
+### 5-2. edit画面：[TestApp/edit.html] 編集
 ```
 {% load static %}
 <!DOCTYPE html>
@@ -308,7 +308,7 @@ def edit(request, num):
 </body>
 </html>
 ```
-### 23. [TestApp/templates/index.html] 編集
+### 5-4. edit画面：[TestApp/templates/index.html] 編集
 ```
     {% for item in data %}
         <tr>
@@ -317,7 +317,7 @@ def edit(request, num):
         </tr>
     {% endfor %}
 ```
-### 24. [TestApp/urls.py] 編集
+### 5-5. edit画面：[TestApp/urls.py] 編集
 ```
 urlpatterns = [
 
@@ -325,8 +325,8 @@ urlpatterns = [
 ]
 ```
 -----
-## delete画面作成
-### 21. [TestApp/views.py] 編集：delete関数
+## 6. delete画面作成
+### 6-1. delete画面：[TestApp/views.py] 編集
 ```
 def delete(request, num):
     MyList = MyList.objects.get(id=num)
@@ -340,7 +340,7 @@ def delete(request, num):
     }
     return render(request, 'TestApp/delete.html', params)
 ```
-### 22. [TestApp/edit.html] 編集：delete画面
+### 6-2. [TestApp/edit.html] 編集
 ```
 {% load static %}
 <!DOCTYPE html>
@@ -369,7 +369,7 @@ def delete(request, num):
 </body>
 </html>
 ```
-### 23. [TestApp/templates/index.html] 編集
+### 6-3. delete画面：[TestApp/templates/index.html] 編集
 ```
     {% for item in data %}
         <tr>
@@ -379,7 +379,7 @@ def delete(request, num):
         </tr>
     {% endfor %}
 ```
-### 24. [TestApp/urls.py] 編集
+### 6-4. delete画面：[TestApp/urls.py] 編集
 ```
 urlpatterns = [
     (中略)
@@ -388,97 +388,8 @@ urlpatterns = [
 ]
 ```
 -----
-### 25. [TestApp/views.py] 編集：ジェネリックビュー
-```
-from django.views.generic import ListView
-from django.views.generic import DetailView
-```
-```
-class MyListList(ListView):
-    model = MyList
-
-class MyListDetail(DetailView):
-    model = MyList
-```
-### 26. [TestApp/urls.py] 編集：ジェネリックビュー
-```
-from .views import MyListList, MyListDetail
-```
-```
-urlpatterns = [
-
-    path('list', MyListList.as_view()),
-    path('detail/<int:pk>', MyListDetail.as_view()),
-]
-```
-### 27. [templates/TestApp/MyList_list.html] 編集：ジェネリックビュー
-```
-{% load static %}
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <title>{{title}}</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" crossorigin="anonymous">
-</head>
-<body class="container">
-    <h1 class="display-4 text-primary">MyLists List</h1>
-    <table class="table">
-        <tr>
-            <th>id</th>
-            <th>name</th>
-            <th></th>
-        </tr>
-        {% for item in object_list %}
-        <tr>
-            <th>{{item.id}}</th>
-            <td>{{item.name}}</td>
-            <td><a href="/TestApp/detail/{{item.id}}">detail</a></td>
-        </tr>
-        {% endfor %}
-    </table>
-</body>
-</html>
-```
-### 28. [TestApp/templates/MyList_detail.html] 編集：ジェネリックビュー
-```
-{% load static %}
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <title>{{title}}</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" crossorigin="anonymous">
-</head>
-<body class="container">
-    <h1 class="display-4 text-primary">MyLists List</h1>
-    <table class="table">
-        <tr>
-            <th>id</th>
-            <th>{{object.id}}</th>
-        </tr>
-        <tr>
-            <th>name</th>
-            <td>{{object.name}}</td>
-        </tr>
-        <tr>
-          <th>mail</th>
-          <td>{{object.mail}}</td>
-        </tr>
-        <tr>
-          <th>gender</th>
-          <td>{{object.gender}}</td>
-        </tr>
-        <tr>
-          <th>age</th>
-          <td>{{object.age}}</td>
-        </tr>
-    </table>
-</body>
-</html>
-```
------
-### 29. [TestApp/templates/TestApp/find.html] 編集：find画面
+## 7. find画面
+### 7-1. find画面：[TestApp/templates/TestApp/find.html] 編集
 ```
 {% load static %}
 <!DOCTYPE html>
@@ -516,7 +427,7 @@ urlpatterns = [
 </body>
 </html>
 ```
-### 30. [TestApp/views.py] 編集：find画面
+### 7-2. find画面：[TestApp/views.py] 編集
 ```
 from .forms import FindForm
 ```
@@ -539,15 +450,107 @@ def find(request):
     }
     return render(request, 'TestApp/find.html', params)
 ```
-### 31. [TestApp/forms.py] 編集：find画面
+### 7-3. find画面：[TestApp/forms.py] 編集
 ```
 class FindForm(forms.Form):
     find = forms.CharField(label='Find', required=False, widget=forms.TextInput(attrs={'class':'form-control'}))
 ```
-### 32. [TestApp/urls.py] 編集：find画面
+### 7-4. find画面：[TestApp/urls.py] 編集
 ```
 urlpatterns = [
 
     path('find', views.find, name='find'),
 ]
 ```
+-----
+## 8. ジェネリックビュー
+### 8-1. ジェネリックビュー：[TestApp/views.py] 編集
+```
+from django.views.generic import ListView
+from django.views.generic import DetailView
+```
+```
+class MyListList(ListView):
+    model = MyList
+
+class MyListDetail(DetailView):
+    model = MyList
+```
+### 8-2. ジェネリックビュー：[TestApp/urls.py] 編集
+```
+from .views import MyListList, MyListDetail
+```
+```
+urlpatterns = [
+
+    path('list', MyListList.as_view()),
+    path('detail/<int:pk>', MyListDetail.as_view()),
+]
+```
+### 8-3. ジェネリックビュー：[templates/TestApp/MyList_list.html] 編集
+```
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" crossorigin="anonymous">
+</head>
+<body class="container">
+    <h1 class="display-4 text-primary">MyLists List</h1>
+    <table class="table">
+        <tr>
+            <th>id</th>
+            <th>name</th>
+            <th></th>
+        </tr>
+        {% for item in object_list %}
+        <tr>
+            <th>{{item.id}}</th>
+            <td>{{item.name}}</td>
+            <td><a href="/TestApp/detail/{{item.id}}">detail</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
+```
+### 8-4. ジェネリックビュー：[TestApp/templates/MyList_detail.html] 編集
+```
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" crossorigin="anonymous">
+</head>
+<body class="container">
+    <h1 class="display-4 text-primary">MyLists List</h1>
+    <table class="table">
+        <tr>
+            <th>id</th>
+            <th>{{object.id}}</th>
+        </tr>
+        <tr>
+            <th>name</th>
+            <td>{{object.name}}</td>
+        </tr>
+        <tr>
+          <th>mail</th>
+          <td>{{object.mail}}</td>
+        </tr>
+        <tr>
+          <th>gender</th>
+          <td>{{object.gender}}</td>
+        </tr>
+        <tr>
+          <th>age</th>
+          <td>{{object.age}}</td>
+        </tr>
+    </table>
+</body>
+</html>
+```
+-----
