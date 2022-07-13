@@ -97,7 +97,7 @@ def write_jsondata(jsn):
 
 
 def dlakasaka(request):
-    msg = '飲み屋検索'
+    msg = '居酒屋検索'
     form = FindForm()
     data = Gourmet.objects.all()
 
