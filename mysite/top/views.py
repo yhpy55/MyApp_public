@@ -5,7 +5,7 @@ import urllib.request, json, requests
 def index(request):
     # data = Gourmet.objects.all()
     params = {
-        'title': 'Webアプリ制作物',
+        'title': 'Web Applications',
         'message': '',
         # 'data': data,
     }
