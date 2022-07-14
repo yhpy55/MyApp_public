@@ -35,7 +35,7 @@ def Login(request):
             return HttpResponse("ログインIDまたはパスワードが間違っています")
     # GET
     else:
-        return render(request, 'dev/login.html')
+        return render(request, 'logintest/login.html')
 
 
 #ログアウト
@@ -50,7 +50,7 @@ def Logout(request):
 @login_required
 def home(request):
     params = {"UserID":request.user,}
-    return render(request, "dev/home.html",context=params)
+    return render(request, "logintest/home.html",context=params)
 
 
 #新規登録
@@ -68,7 +68,7 @@ class  AccountRegistration(TemplateView):
         self.params["account_form"] = AccountForm()
         self.params["add_account_form"] = AddAccountForm()
         self.params["AccountCreate"] = False
-        return render(request,"dev/register.html",context=self.params)
+        return render(request,"logintest/register.html",context=self.params)
 
     #Post処理
     def post(self,request):
@@ -104,4 +104,4 @@ class  AccountRegistration(TemplateView):
             # フォームが有効でない場合
             print(self.params["account_form"].errors)
 
-        return render(request,"dev/register.html",context=self.params)
+        return render(request,"logintest/register.html",context=self.params)
