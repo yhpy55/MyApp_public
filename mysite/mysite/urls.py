@@ -21,14 +21,16 @@ import hello1.views as hello1
 import gourmet.views as gourmet
 import sauna.views as sauna
 import dev.views as dev
+import logintest.views as logintest
 
 urlpatterns = [
     path('', top.index),
     path('top/', top.index),
     path('admin/', admin.site.urls),
-    path('dev/', include('dev.urls')),
     path('hello/', hello.index),
     path('hello1/', hello1.index),
+    path('dev/', include('dev.urls')),
+    path('logintest/', include('logintest.urls')),
     # path('gourmet', gourmet.index),
     # path('sauna/', sauna.index),
     path('gourmet/', include('gourmet.urls')),

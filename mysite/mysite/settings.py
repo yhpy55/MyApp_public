@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'top',
     'dev',
+    'logintest',
     'hello',
     'hello1',
     'gourmet',
