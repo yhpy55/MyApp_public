@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ja" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href='{% static "css/style.css" %}'/>
+</head>
+<body>
+
+<form method="post" action="{% url 'Login' %}" class="login-form">
+    {% csrf_token %}
+    <h1>Please login...</h1>
+    <input type="text" name="userid" class="login-username" placeholder="Username"/>
+    <input type="password" name="password" class="login-password" placeholder="Password"/>
+    <button type="submit" name="Login" value="Login" class="btn">Login</button>
+</form>
+
+</body>
+</html>
