@@ -21,17 +21,19 @@ import hello1.views as hello1
 import gourmet.views as gourmet
 import sauna.views as sauna
 import dev.views as dev
+import qiitasearch.views as quiitasearch
 
 urlpatterns = [
     path('', top.index),
     path('top/', top.index),
     path('admin/', admin.site.urls),
+    path('gourmet/', include('gourmet.urls')),
+    path('sauna/', include('sauna.urls')),
+    path('qiitasearch/', include('qiitasearch.urls')),
     path('dev/', include('dev.urls')),
     path('hello/', hello.index),
     path('hello1/', hello1.index),
     # path('gourmet', gourmet.index),
     # path('sauna/', sauna.index),
-    path('gourmet/', include('gourmet.urls')),
-    path('sauna/', include('sauna.urls')),
     # path('dev/', dev.index),
 ]

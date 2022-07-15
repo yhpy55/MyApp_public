@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'hello1',
     'gourmet',
     'sauna',
+    'qiitasearch',
 ]
 
 MIDDLEWARE = [
