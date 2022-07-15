@@ -9,6 +9,7 @@ class QiitaSearch(models.Model):
     comments_count = models.IntegerField(default=0)
     likes_count = models.IntegerField(default=0)
     reactions_count = models.IntegerField(default=0)
+    page_views_count = models.IntegerField(default=0)
 
     def __str__(self):
         return f'<QiitaSearch:id= {self.title} {self.url}>'
