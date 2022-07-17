@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          crossorigin="anonymous">
+</head>
+<body class="container">
+<table class="table">
+    <td>
+        <p class="display-4 text-primary">{{title}}</p>
+    </td>
+    <td>
+        <a href="/">home</a>/
+        <a href="/gourmet/find">gourmet</a>/
+        <a href="/sauna">sauna</a>
+    </td>
+</table>
+<p class="h5 mt-4">{{message|safe}}</p>
+<table class="table">
+    <tr>
+        <th>店名</th>
+        <th>最寄駅</th>
+        <th>ジャンル</th>
+        <th>定休日</th>
+        <th>Wi-Fi</th>
+        <th>禁煙・喫煙</th>
+        <th>クーポンURL</th>
+    </tr>
+    {% for item in data %}
+    <tr>
+        <td>{{item.name}}</td>
+        <td>{{item.station}}</td>
+        <td>{{item.genre}}</td>
+        <td>{{item.holiday|truncatechars:15}}</td>
+        <td>{{item.wifi}}</td>
+        <td>{{item.non_smoking}}</td>
+        <td><a href="{{item.coupon_urls}}" target="_blank">クーポン</a></td>
+    </tr>
+    {% endfor %}
+</table>
+</body>
+</html>
