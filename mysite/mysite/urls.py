@@ -21,6 +21,7 @@ import hello1.views as hello1
 import gourmet.views as gourmet
 import sauna.views as sauna
 import qiitasearch.views as qiitasearch
+import lunchrec.views as lunchrec
 import dev.views as dev
 
 urlpatterns = [
@@ -30,6 +31,8 @@ urlpatterns = [
     path('gourmet/', include('gourmet.urls')),
     path('sauna/', include('sauna.urls')),
     path('qiitasearch/', include('qiitasearch.urls')),
+    path('lunchrec/', include('lunchrec.urls')),
+    # path('lunchrec/', lunchrec.index),
     path('dev/', include('dev.urls')),
     path('hello/', hello.index),
     path('hello1/', hello1.index),

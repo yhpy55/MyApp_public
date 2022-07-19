@@ -48,13 +48,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.humanize',
     'top',
+    'gourmet',
+    'sauna',
+    'qiitasearch',
+    'lunchrec',
     'dev',
     'logintest',
     'hello',
     'hello1',
-    'gourmet',
-    'sauna',
-    'qiitasearch',
 ]
 
 MIDDLEWARE = [
