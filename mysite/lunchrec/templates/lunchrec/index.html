@@ -10,6 +10,9 @@
 <body class="container">
     <h1 class="display-4 text-primary">{{title}}</h1>
     <p class="h5 mt-4">{{message|safe}}</p>
+    <div align="right">
+        <a class="btn btn-outline-primary btn-sm" href="{% url 'create' %}" role="button">新規情報登録</a>
+    </div>
     <table class="table">
         <tr>
             <th>日付</th>
