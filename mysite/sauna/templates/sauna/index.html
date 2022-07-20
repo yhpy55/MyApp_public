@@ -14,13 +14,13 @@
         <p class="display-4 text-primary">{{title}}</p>
     </td>
     <td>
-        <a href="/">home</a>/
-        <a href="/gourmet/find">gourmet</a>/
+        <a href="/">home</a>
+        <a href="/gourmet/find">gourmet</a>
         <a href="/sauna">sauna</a>
     </td>
     </table>
     <div align="right">
-        <a class="btn btn-outline-primary btn-sm" href="{% url 'create' %}" role="button">新規サウナ情報登録</a>
+        <a class="btn btn-outline-primary btn-sm" href="{% url 'create_s' %}" role="button">新規サウナ情報登録</a>
     </div>
     <table class="table">
         <tr>
@@ -35,8 +35,8 @@
             <td>{{item.address}}</td>
             <td>{{item.fee|intcomma}}円</td>
             <td>{{item.holiday}}</td>
-            <td><a href="{% url 'edit' item.id %}">[編集]</a></td>
-            <td><a href="{% url 'delete' item.id %}">[削除]</a></td>
+            <td><a href="{% url 'edit_s' item.id %}">[編集]</a></td>
+            <td><a href="{% url 'delete_s' item.id %}">[削除]</a></td>
         </tr>
     {% endfor %}
     </table>

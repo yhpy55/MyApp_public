@@ -1,5 +1,4 @@
-from django.shortcuts import render
-from django.shortcuts import redirect
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import Sauna
 from .forms import SaunaForm
@@ -13,7 +12,7 @@ def index(request):
     }
     return render(request, 'sauna/index.html', params)
 
-def create(request):
+def create_s(request):
     if (request.method == 'POST'):
         obj = Sauna()
         sauna = SaunaForm(request.POST, instance=obj)
@@ -23,9 +22,9 @@ def create(request):
         'title': 'Sauna/create',
         'form': SaunaForm(),
     }
-    return render(request, 'sauna/create.html', params)
+    return render(request, 'sauna/create_s.html', params)
 
-def edit(request, num):
+def edit_s(request, num):
     obj = Sauna.objects.get(id=num)
     if (request.method == 'POST'):
         sauna = SaunaForm(request.POST, instance=obj)
@@ -36,9 +35,9 @@ def edit(request, num):
         'id':num,
         'form': SaunaForm(instance=obj)
     }
-    return render(request, 'sauna/edit.html', params)
+    return render(request, 'sauna/edit_s.html', params)
 
-def delete(request, num):
+def delete_s(request, num):
     sauna = Sauna.objects.get(id=num)
     if (request.method == 'POST'):
         sauna.delete()
@@ -48,4 +47,4 @@ def delete(request, num):
         'id':num,
         'obj': sauna,
     }
-    return render(request, 'sauna/delete.html', params)
+    return render(request, 'sauna/delete_s.html', params)

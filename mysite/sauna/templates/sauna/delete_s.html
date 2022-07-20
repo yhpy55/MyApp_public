@@ -11,16 +11,15 @@
     <h1 class="display-4 text-primary">{{title}}</h1>
     <p>※以下のレコードを削除します。</p>
     <table class="table">
-        <tr><th>日付</th><td>{{obj.date}}</td></tr>
-        <tr><th>店名</th><td>{{obj.shop_name}}</td></tr>
-        <tr><th>品名</th><td>{{obj.menu_name}}</td></tr>
-        <tr><th>価格</th><td>{{obj.price}}</td></tr>
-        <tr><th>備考</th><td>{{obj.remark}}</td></tr>
+        <tr><th>店舗名</th><td>{{obj.name}}</td></tr>
+        <tr><th>住所</th><td>{{obj.address}}</td></tr>
+        <tr><th>入浴料</th><td>{{obj.fee}}</td></tr>
+        <tr><th>定休日</th><td>{{obj.holiday}}</td></tr>
     </table>
-    <form action="{% url 'delete' id %}" method="post">
+    <form action="{% url 'delete_s' id %}" method="post">
         {% csrf_token %}
             <tr><th><td>
-                <input type="submit" value="click" class="btn btn-primary">
+                <input type="submit" value="削除" class="btn btn-primary">
             </td></th></tr>
     </form>
 </body>

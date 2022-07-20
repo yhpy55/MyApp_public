@@ -13,7 +13,7 @@ def index(request):
     return render(request, 'lunchrec/index.html', params)
 
 
-def create(request):
+def create_l(request):
     if (request.method == 'POST'):
         obj = LunchrecList()
         lunchrecList = LunchrecListForm(request.POST, instance=obj)
@@ -23,10 +23,10 @@ def create(request):
         'title': 'LunchRec/create',
         'form': LunchrecListForm(),
     }
-    return render(request, 'lunchrec/create.html', params)
+    return render(request, 'lunchrec/create_l.html', params)
 
 
-def edit(request, num):
+def edit_l(request, num):
     obj = LunchrecList.objects.get(id=num)
     if (request.method == 'POST'):
         lunchrecList = LunchrecListForm(request.POST, instance=obj)
@@ -37,10 +37,10 @@ def edit(request, num):
         'id': num,
         'form': LunchrecListForm(instance=obj)
     }
-    return render(request, 'lunchrec/edit.html', params)
+    return render(request, 'lunchrec/edit_l.html', params)
 
 
-def delete(request, num):
+def delete_l(request, num):
     data = LunchrecList.objects.get(id=num)
     if (request.method == 'POST'):
         data.delete()
@@ -50,7 +50,7 @@ def delete(request, num):
         'id': num,
         'obj': data,
     }
-    return render(request, 'lunchrec/delete.html', params)
+    return render(request, 'lunchrec/delete_l.html', params)
 
 
 
