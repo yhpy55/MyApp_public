@@ -143,3 +143,18 @@ STATIC_DIR,
 
 #####
 NUMBER_GROUPING = 3
+
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
+DEPLOY = True
+if DEPLOY:
+    SECURE_HSTS_SECONDS = 60                # security.W004
+    # SECURE_HSTS_SECONDS = 36000
+    # SECURE_HSTS_INCLUDE = True
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True   # security.W005
+    # SECURE_SSL_REDIRECT = True              # security.W008
+    SESSION_COOKIE_SECURE = True            # security.W012
+    CSRF_COOKIE_SECURE = True               # security.W016
+    DEBUG = False                           # security.W018
+    SECURE_HSTS_PRELOAD = True              # security.W021
+    SECURE_REFERRER_POLICY = 'same-origin'  # security.W022
